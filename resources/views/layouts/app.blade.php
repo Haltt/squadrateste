@@ -78,7 +78,6 @@
     </div>
 
 <!-- Scripts -->
-<script src="{{ asset('js/jquery.mask.js') }}" defer></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $('#dataDoCadastro').mask('00/00/0000');
