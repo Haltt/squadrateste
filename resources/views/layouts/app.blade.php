@@ -77,12 +77,7 @@
         </main>
     </div>
 
-<!-- Scripts -->
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#dataDoCadastro').mask('00/00/0000');
-        $('#valor').mask("#.##0,00", {reverse: true});
-    });
-</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 </body>
 </html>

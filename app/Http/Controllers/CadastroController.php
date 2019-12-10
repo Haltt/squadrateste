@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cadastro;
 use Illuminate\Http\Request;
 
 class CadastroController extends Controller
@@ -13,23 +14,10 @@ class CadastroController extends Controller
      */
     public function index()
     {
-        return view('cadastro');
-    }
+        $cadastros = Cadastro::latest()->paginate(5);
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'dataDoCadastro' => ['required', 'string'],
-            'descricao' => ['required', 'string'],
-            'valor' => ['required', 'float'],
-        ]);
+        return view('cadastros.index', compact('cadastros'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -39,62 +27,84 @@ class CadastroController extends Controller
      */
     public function create()
     {
-        //
+        return view('cadastros.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'descricao' => 'required',
+            'valor' => 'required',
+        ]);
+
+        Cadastro::create($request->all());
+
+        return redirect()->route('cadastros.index')
+            ->with('success', 'Cadastro created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param \App\Cadastro $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Cadastro $cadastro)
     {
-        //
+        return view('cadastros.show', compact('cadastro'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param \App\Cadastro $cadastro
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cadastro $cadastro)
     {
-        //
+        return view('cadastros.edit', compact('cadastro'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Cadastro $cadastro
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cadastro $cadastro)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'valor' => 'required',
+            'descricao' => 'required',
+        ]);
+
+        $cadastro->update($request->all());
+
+        return redirect()->route('cadastros.index')
+            ->with('success', 'Cadastro updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param \App\Cadastro $cadastro
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cadastro $cadastro)
     {
-        //
+        $cadastro->delete();
+
+        return redirect()->route('cadastros.index')
+            ->with('success', 'Cadastro deleted successfully');
     }
 }

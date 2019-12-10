@@ -18,4 +18,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('cadastro', 'CadastroController@index')->name('cadastro');
+Route::resource('cadastros', 'CadastroController');
