@@ -69,7 +69,7 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Painel</a>
-                        <a href="{{ url('/cadastro') }}">Cadastro</a>
+                        <a href="{{ url('/cadastros') }}">Cadastros</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 

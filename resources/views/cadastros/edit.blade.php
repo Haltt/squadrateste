@@ -26,20 +26,26 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Name:</strong>
-                    <input type="text" name="nome" value="{{ $cadastro->nome }}" class="form-control" placeholder="Name">
+                    <label for="nome" class="sr-only">Name:</label>
+                    <input type="text" name="nome" id="nome" value="{{ $cadastro->nome }}" class="form-control" placeholder="Name">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Valor:</strong>
-                    <input type="text" name="valor" value="{{ $cadastro->valor }}" class="form-control" placeholder="Valor">
+                    <label for="valor" class="sr-only">Valor:</label>
+                    <input type="text" name="valor" id="valor" value="{{ $cadastro->valor }}" data-mask="###0.00" data-mask-reverse="true" class="form-control" placeholder="Valor">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Descrição:</strong>
-                    <textarea class="form-control" style="height:150px" name="descricao" placeholder="Descrição">{{ $cadastro->descricao }}</textarea>
+                    <label for="dataDoCadastro" class="sr-only">Data do Cadastro:</label>
+                    <input type="text" name="dataDoCadastro" id="dataDoCadastro" value="{{ $cadastro->dataDoCadastro }}" data-mask="00/00/0000 00:00:00" class="form-control" placeholder="Data do Cadastro">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <label for="descricao" class="sr-only">Descrição:</label>
+                    <textarea class="form-control" style="height:150px" name="descricao" id="descricao" placeholder="Descrição">{{ $cadastro->descricao }}</textarea>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

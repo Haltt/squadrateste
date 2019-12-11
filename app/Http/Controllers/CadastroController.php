@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cadastro;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CadastroController extends Controller
@@ -42,9 +43,13 @@ class CadastroController extends Controller
             'nome' => 'required',
             'descricao' => 'required',
             'valor' => 'required',
+            'dataDoCadastro' => 'required',
         ]);
-
-        Cadastro::create($request->all());
+        $data = $request->all();
+        $newDate = date_create($data['dataDoCadastro']);
+        date_format($newDate,'Y-m-d H:i:s');
+        $data['dataDoCadastro'] = $newDate;
+        Cadastro::create($data);
 
         return redirect()->route('cadastros.index')
             ->with('success', 'Cadastro created successfully.');
@@ -85,9 +90,14 @@ class CadastroController extends Controller
             'nome' => 'required',
             'valor' => 'required',
             'descricao' => 'required',
+            'dataDoCadastro' => 'required',
         ]);
 
-        $cadastro->update($request->all());
+        $data = $request->all();
+        $newDateUp = date_create($data['dataDoCadastro']);
+        date_format($newDateUp,'Y-m-d H:i:s');
+        $data['dataDoCadastro'] = $newDateUp;
+        $cadastro->update($data);
 
         return redirect()->route('cadastros.index')
             ->with('success', 'Cadastro updated successfully');
@@ -99,6 +109,7 @@ class CadastroController extends Controller
      *
      * @param \App\Cadastro $cadastro
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Cadastro $cadastro)
     {
